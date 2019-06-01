@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>View</title>
+  <style type="text/css">
+    #app {
+      text-align: center;
+      margin-top: 200px;
+    }
+    input,
+    button {
+      font-size: 16px;
+      padding: 6px 12px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    input {
+    }
+    button {
+      background-color: #5cb85c;
+      border-color: #449d44;
+      color: #fff;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <h1>{{title}}</h1>
+    <input v-model="name">
+    <h3>{{name}}</h3>
+    <button v-on:click="clickMe">Say Hello</button>
+  </div>
+  <script type="text/javascript" src="js/Wacther.js"></script>
+  <script type="text/javascript" src="js/Observer.js"></script>
+  <script type="text/javascript" src="js/Compile.js"></script>
+  <script type="text/javascript" src="js/index.js"></script>
+  <script type="text/javascript">
+    let view = new View({
+      el: '#app',
+      data: {
+        title: 'View',
+        name: 'Hedgehog'
+      },
+      methods: {
+        clickMe () {
+          alert('Hello!');
+        }
+      }
+    });
+  </script>
+
+</body>
+</html>

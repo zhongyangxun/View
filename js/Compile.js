@@ -70,7 +70,7 @@ Compile.prototype = {
 
     new Watcher(vm, exp, (val) => {
       this.updateModel(node, val);
-     });
+    });
 
     node.addEventListener('input', (e) => {
       vm[exp] = e.target.value;

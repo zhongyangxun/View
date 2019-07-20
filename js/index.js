@@ -1,28 +1,26 @@
 function View (options) {
-  this.vm = this;
   this.data = options.data;
   this.methods = options.methods;
 
-  Object.keys(this.data).forEach(key => {
-    this.proxyKey(key);
-  });
+  let proxy = new Proxy(this, this.proxyDesc);
+  proxy.vm = proxy;
 
-  observe(this.data);
-  new Compile(options.el, this.vm);
-  return this;
+  this.data = observe(proxy.data);
+
+  new Compile(options.el, proxy.vm);
+  return proxy;
 }
 
 View.prototype = {
-  proxyKey (key) {
-    Object.defineProperty(this, key, {
-      configuration: false,
-      enumerable: true,
-      get () {
-        return this.data[key];
-      },
-      set (newVal) {
-        this.data[key] = newVal;
+  proxyDesc: {
+    get (target, property) {
+      if (target.data[property]) {
+        return target.data[property];
       }
-    });
+      return target[property];
+    },
+    set (target, property, newVal) {
+      target.data[property] = newVal;
+    }
   }
 }

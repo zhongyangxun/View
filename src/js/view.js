@@ -1,3 +1,6 @@
+import Compile from './compile.js';
+import Observer from './observer.js'
+
 function View (options) {
   this.data = options.data;
   this.methods = options.methods;
@@ -5,7 +8,7 @@ function View (options) {
   let proxy = new Proxy(this, this.proxyDesc);
   proxy.vm = proxy;
 
-  this.data = observe(proxy.data);
+  this.data = Observer.observe(proxy.data);
 
   new Compile(options.el, proxy.vm);
   return proxy;
@@ -21,6 +24,9 @@ View.prototype = {
     },
     set (target, property, newVal) {
       target.data[property] = newVal;
+      return true;
     }
   }
 }
+
+export default View;

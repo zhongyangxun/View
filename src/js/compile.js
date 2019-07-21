@@ -1,3 +1,5 @@
+import Watcher from './watcher.js'
+
 function Compile (el ,vm) {
   this.vm = vm;
   this.el = document.querySelector(el);
@@ -92,3 +94,5 @@ Compile.prototype = {
     return attrName.indexOf('v-') === 0;
   }
 }
+
+export default Compile;
